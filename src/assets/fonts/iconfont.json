@@ -1,0 +1,23 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "4866685",
+      "name": "用户名",
+      "font_class": "yonghuming",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "7677917",
+      "name": "用户名",
+      "font_class": "yonghuming1",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    }
+  ]
+}
