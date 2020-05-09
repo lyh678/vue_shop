@@ -212,7 +212,7 @@ export default {
       }
       this.userlist = res.data.users;
       this.total = res.data.total;
-      console.log(res);
+      
     },
     //监听pagesize改变的事件
     handleSizeChange(newSize) {
@@ -224,7 +224,7 @@ export default {
       this.getUserList();
     },
     async userStateChanged(userinfo) {
-      console.log(userinfo);
+     
       const { data: res } = await this.$http.put(
         `users/${userinfo.id}/state/${userinfo.mg_state}`
       );
@@ -278,7 +278,7 @@ export default {
           return this.$message.error("编辑用户失败！");
         }
         
-        //隐藏添加用户的对话框
+        //隐藏编辑用户的对话框
         this.editDialogVisible = false;
         //刷新数据列表
         this.getUserList();
