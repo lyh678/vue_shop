@@ -4,11 +4,13 @@ import Login from '@/components/login/login.vue'
 import Home from '@/components/home/home.vue'
 import Welcome from '@/components/home/welcome.vue'
 import Users from '@/components/home/user/users.vue'
+import Goods from '@/components/home/goods/goods.vue'
+import Add from '@/components/home/goods/add.vue'
 
 
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
   // {
   //   path: '/',
   //   name: 'Home',
@@ -43,7 +45,14 @@ Vue.use(VueRouter)
     {
       path: '/users',
       component: Users
-    }]
+    },
+    {
+      path: '/goods',
+      component: Goods
+    },{
+      path: '/goods/add',
+      component: Add
+    },]
   }
 ]
 
@@ -58,11 +67,11 @@ router.beforeEach((to, from, next) => {
   //next：是一个函数，表示放行
   //next()：放行  next('/login') 强制跳转
 
- if  (to.path === '/login') return next()
+  if (to.path === '/login') return next()
   //获取token
- const tokenStr = window.sessionStorage.getItem('token')
- if (!tokenStr) return next('/login')
- next()
+  const tokenStr = window.sessionStorage.getItem('token')
+  if (!tokenStr) return next('/login')
+  next()
 })
 
 export default router
