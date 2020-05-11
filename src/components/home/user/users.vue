@@ -48,7 +48,12 @@
               ></el-button>
             </el-tooltip>
             <el-tooltip effect="dark" content="删除" placement="top" :enterable="false">
-              <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeUserById(scope.row.id)"></el-button>
+              <el-button
+                type="danger"
+                icon="el-icon-delete"
+                size="mini"
+                @click="removeUserById(scope.row.id)"
+              ></el-button>
             </el-tooltip>
             <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
               <el-button type="primary" icon="el-icon-setting" size="mini"></el-button>
@@ -96,10 +101,10 @@
         <el-form-item label="用户名">
           <el-input v-model="editForm.username" disabled></el-input>
         </el-form-item>
-                <el-form-item label="邮箱" prop="email">
+        <el-form-item label="邮箱" prop="email">
           <el-input v-model="editForm.email"></el-input>
         </el-form-item>
-                <el-form-item label="手机" prop="mobile">
+        <el-form-item label="手机" prop="mobile">
           <el-input v-model="editForm.mobile"></el-input>
         </el-form-item>
       </el-form>
@@ -196,7 +201,6 @@ export default {
           { validator: checkMobile, trigger: "blur" }
         ]
       }
-
     };
   },
   created() {
@@ -212,7 +216,6 @@ export default {
       }
       this.userlist = res.data.users;
       this.total = res.data.total;
-      
     },
     //监听pagesize改变的事件
     handleSizeChange(newSize) {
@@ -224,7 +227,6 @@ export default {
       this.getUserList();
     },
     async userStateChanged(userinfo) {
-     
       const { data: res } = await this.$http.put(
         `users/${userinfo.id}/state/${userinfo.mg_state}`
       );
@@ -264,20 +266,23 @@ export default {
     },
     //监听编辑用户对话框的关闭事件
     editDialogClosed() {
-       this.$refs.editFormRef.resetFields();
+      this.$refs.editFormRef.resetFields();
     },
-    editUserInfo () {
+    editUserInfo() {
       this.$refs.editFormRef.validate(async valid => {
-        if (!valid) return
+        if (!valid) return;
         //可以发起编辑用户的数据请求
-        const { data: res } = await this.$http.put('users/'+ this.editForm.id,{
-          email: this.editForm.email,
-          mobile: this.editForm.mobile
-        });
+        const { data: res } = await this.$http.put(
+          "users/" + this.editForm.id,
+          {
+            email: this.editForm.email,
+            mobile: this.editForm.mobile
+          }
+        );
         if (res.meta.status !== 200) {
           return this.$message.error("编辑用户失败！");
         }
-        
+
         //隐藏编辑用户的对话框
         this.editDialogVisible = false;
         //刷新数据列表
@@ -290,26 +295,25 @@ export default {
     async removeUserById(id) {
       //弹窗询问用户是否删除数据
       const confirmResult = await this.$confirm(
-        '此操作将永久删除该用户，是否继续？',
-        '提示',
+        "此操作将永久删除该用户，是否继续？",
+        "提示",
         {
-          confirmButtonText:'确定',
-          cancelButtonText: '取消',
-          type: 'warning'
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
         }
-      ).catch(err => err)
+      ).catch(err => err);
       // 如果用户确认删除，则返回值为字符串 comfirm
       // 如果用户取消了删除，则返回值为字符串cancel
-      if (confirmResult !== 'confirm') {
-        return this.$message.info('已取消删除')
+      if (confirmResult !== "confirm") {
+        return this.$message.info("已取消删除");
       }
-      const { data : res } = await this.$http.delete('users/'+id)
-      if (res.meta.status !==200 ) {
-        return this.$message.error('删除用户失败！')
+      const { data: res } = await this.$http.delete("users/" + id);
+      if (res.meta.status !== 200) {
+        return this.$message.error("删除用户失败！");
       }
-      this.$message.success('删除用户成功！')
-      this.getUserList()
-      
+      this.$message.success("删除用户成功！");
+      this.getUserList();
     }
   }
 };
